@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>黑夜有繁星合唱团成立1周年啦~</title>
+    <!-- Font Awesome 6 免费图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 优雅英文字体 + 中文字体回退 -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 重置 & 基础 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+            background-color: #030812;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* 星空容器 —— 固定全屏，所有星体、流星、音符都在其中 */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none;  /* 让点击穿透到内容区按钮 */
+            background: radial-gradient(circle at 50% 50%, #0a1a2f 0%, #030812 100%);
+        }
+
+        /* ---------- 流星样式 ---------- */
+        .shooting-star {
+            position: absolute;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(210, 230, 255, 0.4), transparent);
+            border-radius: 2px;
+            filter: drop-shadow(0 0 6px rgba(170, 220, 255, 0.8));
+            transform: rotate(-25deg);
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .shooting-star-1 {
+            top: 15%;
+            left: -10%;
+            animation: shoot 10s 3s infinite ease-in;
+        }
+
+        .shooting-star-2 {
+            top: 65%;
+            left: -15%;
+            width: 160px;
+            transform: rotate(-18deg);
+            animation: shoot 12s 7s infinite ease-in;
+        }
+
+        @keyframes shoot {
+            0% {
+                left: -20%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                left: 130%;
+                top: 75%;
+                opacity: 0;
+            }
+        }
+
+        /* 星星 + 音符公用定位，所有装饰物均无指针事件 */
+        .star, .music-note {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(255, 255, 180, 0.8);
+            z-index: 1;
+        }
+
+        /* 音符图标特殊处理 */
+        .music-note {
+            background: transparent;
+            box-shadow: none;
+            color: rgba(210, 230, 255, 0.7);
+            text-shadow: 0 0 10px rgba(180, 220, 255, 0.9);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: floatNote 4s infinite alternate ease-in-out;
+        }
+
+        /* 星星闪烁动画 */
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        /* 音符浮动动画 */
+        @keyframes floatNote {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-15px) rotate(8deg); }
+        }
+
+        /* ---------- 主要内容层 (z-index 高于星空) ---------- */
+        .content {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(3px);  /* 轻微玻璃效果，让文字更清晰 */
+        }
+
+        /* 合唱团标志区域 */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-icon {
+            background: rgba(10, 25, 45, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 200, 0.3);
+            border-radius: 60px;
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 30px rgba(0, 160, 255, 0.2);
+        }
+
+        .logo-icon i {
+            color: #ffe48f;
+            font-size: 2rem;
+            filter: drop-shadow(0 0 8px gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            background: linear-gradient(135deg, #ffeac0, #fff9e6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .logo-sub {
+            font-size: 1rem;
+            color: #b3e4ff;
+            letter-spacing: 8px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* 1周年核心徽章 */
+        .anniversary-badge {
+            margin: 30px 0 20px;
+            position: relative;
+        }
+
+        .big-one {
+            font-size: 12rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            line-height: 0.9;
+            background: linear-gradient(145deg, #fff9e6, #ffeec2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px #ffd966, 0 0 60px #ffb347, 0 0 100px #c1a0ff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .st-anniversary {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 10px;
+        }
+
+        .st {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffd78c;
+            text-shadow: 0 0 15px #ffae42;
+            vertical-align: super;
+        }
+
+        .anniversary-text {
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            font-weight: 600;
+            color: rgba(255, 255, 210, 0.9);
+            text-shadow: 0 0 12px #7ec8ff;
+            margin-top: -10px;
+        }
+
+        .year-span {
+            display: inline-block;
+            background: rgba(0, 20, 40, 0.6);
+            backdrop-filter: blur(4px);
+            padding: 0.6rem 2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 180, 0.5);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #fffdde;
+            margin-top: 10px;
+            letter-spacing: 4px;
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.3);
+        }
+
+        /* 祝福语 */
+        .message {
+            font-size: 1.5rem;
+            margin: 30px 0 25px;
+            font-weight: 400;
+            background: linear-gradient(145deg, #ffffff, #ffeac0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(255, 255, 200, 0.5);
+            max-width: 700px;
+            padding: 0 20px;
+        }
+
+        .message i {
+            color: #ffbc6e;
+            margin: 0 5px;
+        }
+
+        /* 外部链接主按钮 */
+        .external-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(145deg, #3b5b9b, #1e2f5a);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1.1rem 3rem;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 30px #3f7b9c;
+            transition: all 0.3s ease;
+            margin: 20px 0 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 180, 0.6);
+        }
+
+        .external-btn i {
+            font-size: 1.5rem;
+            color: #ffd966;
+            filter: drop-shadow(0 0 8px #ffb700);
+        }
+
+        .external-btn:hover {
+            transform: scale(1.08);
+            background: linear-gradient(145deg, #4f7ac0, #2a3f70);
+            box-shadow: 0 15px 35px #000, 0 0 50px #59c7ff;
+            border-color: #ffe28c;
+        }
+
+        /* 社交小链接 —— 外部网站扩展 */
+        .social-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            color: rgba(255, 255, 220, 0.8);
+            font-size: 1.8rem;
+            transition: all 0.2s;
+            padding: 5px;
+            border-radius: 50%;
+            background: rgba(10, 20, 40, 0.5);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 200, 0.2);
+        }
+
+        .social-link:hover {
+            color: #fff;
+            background: rgba(70, 130, 200, 0.6);
+            border-color: #fff5b0;
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px #aad4ff;
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: rgba(200, 220, 255, 0.7);
+            border-top: 1px solid rgba(255,255,200,0.2);
+            padding-top: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .footer i {
+            color: #ffbc6e;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            .big-one {
+                font-size: 8rem;
+            }
+            .st {
+                font-size: 2.2rem;
+            }
+            .anniversary-text {
+                font-size: 1rem;
+                letter-spacing: 5px;
+            }
+            .message {
+                font-size: 1.2rem;
+            }
+            .external-btn {
+                font-size: 1.1rem;
+                padding: 0.9rem 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+            .big-one {
+                font-size: 6rem;
+            }
+        }
+
+        /* 生成星星容器的内部元素都用绝对定位，已经包含在JS中 */
+    </style>
+</head>
+<body>
+
+    <!-- 星空容器：所有动态星星、音乐符号、流星都在这里 -->
+    <div class="stars-container" id="starField">
+        <!-- 两颗固定流星，由CSS动画驱动 -->
+        <div class="shooting-star shooting-star-1"></div>
+        <div class="shooting-star shooting-star-2"></div>
+        <!-- 其余星星和音符将由JavaScript动态生成，填满夜空 -->
+    </div>
+
+    <!-- 主视觉内容 -->
+    <div class="content">
+        
+        <!-- 合唱团标志 · 黑夜有繁星 -->
+        <div class="logo-area">
+            <div class="logo-icon">
+                <i class="fas fa-star"></i>
+                <span class="logo-text">黑夜有繁星合唱团</span>
+                <i class="fas fa-music"></i>
+            </div>
+        </div>
+        <div class="logo-sub">黑夜有繁星我们1岁啦~</div>
+
+        <!-- 1周年庆典核心徽章 -->
+        <div class="anniversary-badge">
+            <span class="big-one">1</span>
+            <span class="st">st</span>
+            <div class="anniversary-text">ANNIVERSARY</div>
+        </div>
+
+        <!-- 成立年份 -->
+        <div class="year-span">
+            <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i> 2025.2.13 — 2026.2.13 <i class="fas fa-calendar-check" style="margin-left: 8px;"></i>
+        </div>
+
+        <!-- 温暖祝福语 -->
+        <div class="message">
+            <i class="fas fa-quote-left"></i> 感谢每一颗星，在黑夜中闪耀 <br> 合唱团一周年，因你而精彩 <i class="fas fa-quote-right"></i>
+        </div>
+
+        <!-- 主要外部链接 · 跳转官网（新窗口） -->
+        <a href="https://www.xiaohongshu.com/user/profile/62a736f6000000001b029d99?xsec_token=ABm7MMNahzoICmq7Lr_ILXlJUWWP9XXDDowrJd_No2yO0%3D&xsec_source=pc_search" target="_blank" rel="noopener noreferrer" class="external-btn">
+            <i class="fas fa-external-link-alt"></i> 庆祝时刻·访问官方账号
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+
+        <!-- 页脚版权信息 -->
+        <div class="footer">
+            <i class="fas fa-crown"></i> 黑夜有繁星合唱团 · 一周年快乐 <i class="fas fa-crown"></i><br>
+            <span style="font-size: 0.8rem; opacity: 0.7;">星河滚烫，你是人间理想 · 2026让我们一起加油吧~</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+
+            // 获取星空容器
+            const starContainer = document.getElementById('starField');
+            if (!starContainer) return;
+
+            // 清除之前可能存在的动态星星/音符（保留手动写的两颗流星）
+            const existingDynamics = starContainer.querySelectorAll('.star, .music-note');
+            existingDynamics.forEach(el => el.remove());
+
+            // ---------- 配置参数 ----------
+            const STAR_COUNT = 180;      // 星星数量
+            const NOTE_COUNT = 18;       // 漂浮音符数量
+
+            // 随机颜色池 (星星)
+            const starColors = [
+                '#ffffff', '#ffe9c4', '#f0f8ff', '#fffde7', '#ffe28c', '#e6f7ff', '#ffe0b3'
+            ];
+
+            // 随机生成星星
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机尺寸 1px ~ 4px，偶尔大星(5px)
+                const size = Math.random() < 0.1 ? Math.floor(Math.random() * 3) + 4 : Math.floor(Math.random() * 3) + 1; // 1-4 或 4-6
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // 随机位置 (0~100%)
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // 随机颜色
+                const color = starColors[Math.floor(Math.random() * starColors.length)];
+                star.style.backgroundColor = color;
+                
+                // 随机发光强度
+                const glowStrength = Math.random() * 12 + 6;
+                star.style.boxShadow = `0 0 ${glowStrength}px ${color}`;
+                
+                // 随机动画时长 (1.5s ~ 5s) 和延迟
+                const duration = Math.random() * 3.5 + 1.8;
+                const delay = Math.random() * 5;
+                star.style.animation = `twinkle ${duration}s infinite ease-in-out`;
+                star.style.animationDelay = delay + 's';
+                
+                // 微调透明度
+                star.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                starContainer.appendChild(star);
+            }
+
+            // 随机生成漂浮音符 (Font Awesome 音乐图标)
+            // 注意：必须确保 Font Awesome 已加载，音符使用 <i> 元素
+            for (let i = 0; i < NOTE_COUNT; i++) {
+                const note = document.createElement('i');
+                note.className = 'fas fa-music music-note';  // music-note 覆盖部分定位样式
+                
+                // 随机位置
+                note.style.left = Math.random() * 100 + '%';
+                note.style.top = Math.random() * 100 + '%';
+                
+                // 随机字体大小 16px ~ 32px
+                const fontSize = Math.floor(Math.random() * 18) + 16;
+                note.style.fontSize = fontSize + 'px';
+                
+                // 随机颜色: 淡黄/淡蓝/淡紫
+                const hue = Math.floor(Math.random() * 40) + 40; // 40-80 黄色调，可混蓝
+                note.style.color = `hsla(${hue}, 70%, 80%, 0.5)`;
+                note.style.textShadow = `0 0 15px hsla(${hue}, 90%, 70%, 0.8)`;
+                
+                // 随机动画延迟与时长
+                const floatDur = Math.random() * 5 + 4;
+                const floatDelay = Math.random() * 3;
+                note.style.animation = `floatNote ${floatDur}s infinite alternate ease-in-out`;
+                note.style.animationDelay = floatDelay + 's';
+                
+                // 随机旋转初始角度
+                const rotate = Math.floor(Math.random() * 30) - 15;
+                note.style.transform = `rotate(${rotate}deg)`;
+                
+                // 轻微透明度变化
+                note.style.opacity = Math.random() * 0.3 + 0.2;
+                
+                starContainer.appendChild(note);
+            }
+
+            // 额外加几颗特别亮的大星 (5颗) 制造焦点
+            for (let i = 0; i < 5; i++) {
+                const bigStar = document.createElement('div');
+                bigStar.className = 'star';
+                const size = Math.floor(Math.random() * 4) + 5; // 5-8px
+                bigStar.style.width = size + 'px';
+                bigStar.style.height = size + 'px';
+                bigStar.style.left = Math.random() * 100 + '%';
+                bigStar.style.top = Math.random() * 100 + '%';
+                bigStar.style.backgroundColor = '#fffde7';
+                bigStar.style.boxShadow = `0 0 25px #ffe28c, 0 0 40px #ffb347`;
+                bigStar.style.animation = `twinkle 3s infinite ease-in-out`;
+                bigStar.style.animationDelay = Math.random() * 2 + 's';
+                bigStar.style.opacity = 0.9;
+                starContainer.appendChild(bigStar);
+            }
+
+            // 也可以点缀少量流星（除了固定的两条，再增加两条动态随机流星，但是CSS固定两条已经够氛围，所以这里省略）
+            // 但为了让夜空更生动，额外加几颗带星芒效果的小星星（用十字线不好模拟，保持简洁）
+        })();
+    </script>
+
+    <!-- 针对老旧浏览器的降级：确保星星容器背景不被覆盖，且内容可读 -->
+    <noscript>
+        <style>
+            .stars-container { background: radial-gradient(circle at 50% 50%, #0a1a2f, #030812); }
+        </style>
+    </noscript>
+</body>
+</html>
