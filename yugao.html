@@ -1,0 +1,268 @@
+<!-- preview.html (新一期预告) -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>好好生活就是美好生活 · 预告</title>
+    <!-- 相同资源 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 复用基础星星样式，与信件页类似，只改内容卡片 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-deep: #030812;
+            --bg-stars: radial-gradient(circle at 50% 50%, #0a1a2f 0%, #030812 100%);
+        }
+        body {
+            font-family: 'Montserrat', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-deep);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .stars-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; overflow: hidden; pointer-events: none;
+            background: var(--bg-stars);
+        }
+        .shooting-star {
+            position: absolute; width: 140px; height: 2px;
+            background: linear-gradient(90deg, rgba(255, 255, 240, 1), rgba(200, 225, 255, 0.5), transparent);
+            border-radius: 4px; filter: drop-shadow(0 0 12px #b0e0ff) drop-shadow(0 0 20px #f0e68c);
+            transform: rotate(-22deg); opacity: 0; z-index: 3;
+        }
+        .shooting-star-1 { top: 15%; left: -10%; animation: shoot 10s 3s infinite ease-in; }
+        .shooting-star-2 { top: 65%; left: -15%; width: 180px; transform: rotate(-15deg); animation: shoot 12s 7s infinite ease-in; }
+        @keyframes shoot {
+            0% { left: -20%; opacity: 0; transform: rotate(-22deg) translateX(0); }
+            10% { opacity: 1; }
+            100% { left: 130%; top: 75%; opacity: 0; transform: rotate(-22deg) translateX(30px); }
+        }
+        .star, .music-note {
+            position: absolute; pointer-events: none; border-radius: 50%; z-index: 1;
+            will-change: opacity, transform;
+        }
+        .star { background-color: #fff; box-shadow: 0 0 10px rgba(255, 255, 180, 0.8); }
+        .music-note {
+            background: transparent; box-shadow: none; color: rgba(210, 230, 255, 0.7);
+            text-shadow: 0 0 15px rgba(180, 220, 255, 0.9), 0 0 30px #c3a0ff;
+            font-size: 22px; display: flex; align-items: center; justify-content: center;
+            animation: floatNote 5s infinite alternate ease-in-out; transform-origin: center;
+        }
+        @keyframes twinkle { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+        @keyframes floatNote {
+            0% { transform: translateY(0px) translateX(0px) rotate(-6deg); }
+            50% { transform: translateY(-10px) translateX(5px) rotate(3deg); }
+            100% { transform: translateY(-18px) translateX(-5px) rotate(10deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .shooting-star, .star, .music-note { animation: none !important; opacity: 0.7; }
+            .shooting-star { display: none; }
+        }
+        .content {
+            position: relative; z-index: 20;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; min-height: 100vh; width: 100%;
+            max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem;
+            backdrop-filter: blur(2px);
+        }
+        .preview-card {
+            background: rgba(10, 20, 35, 0.7);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 230, 150, 0.3);
+            border-radius: 36px;
+            padding: 2.8rem 2.8rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.7), 0 0 100px rgba(110, 160, 255, 0.2);
+            width: 100%;
+        }
+        .preview-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(145deg, #fff5d0, #ffeec2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.8rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 30px #ffb87c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .preview-title i {
+            font-size: 2.5rem;
+            color: #ffbc6e;
+            filter: drop-shadow(0 0 10px #ff9f4b);
+        }
+        .preview-sub {
+            font-size: 1.3rem;
+            color: #b3e8ff;
+            margin-bottom: 2.5rem;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed rgba(255,255,160,0.3);
+            padding-bottom: 1rem;
+        }
+        .preview-text {
+            font-size: 1.2rem;
+            color: #fff5e0;
+            text-align: left;
+            line-height: 2;
+            margin-bottom: 2rem;
+            white-space: pre-line;
+            text-shadow: 0 0 8px rgba(0,0,0,0.4);
+        }
+        .preview-quote {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffda8c;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 60px;
+            border: 1px solid rgba(255,215,0,0.3);
+            text-shadow: 0 0 15px #ffae42;
+        }
+        .back-home {
+            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(30, 45, 70, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 220, 120, 0.5);
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff7e6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-home:hover {
+            transform: scale(1.05);
+            background: rgba(50, 75, 120, 0.8);
+            box-shadow: 0 0 30px #79c3ff;
+            border-color: #ffe5a3;
+        }
+        .footer-note {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: rgba(200, 220, 255, 0.6);
+        }
+        @media (max-width: 600px) {
+            .preview-card { padding: 2rem 1.5rem; }
+            .preview-title { font-size: 2.2rem; }
+            .preview-text { font-size: 1rem; }
+            .preview-quote { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-container" id="starField">
+        <div class="shooting-star shooting-star-1"></div>
+        <div class="shooting-star shooting-star-2"></div>
+    </div>
+    <div class="content">
+        <div class="preview-card">
+            <div class="preview-title">
+                <i class="fas fa-sun"></i> 好好生活就是美好生活 <i class="fas fa-cloud-sun"></i>
+            </div>
+            <div class="preview-sub">下一期合唱 · 温暖预告</div>
+            <div class="preview-text">
+不知道你有没有发现，最近耳机里的歌，越来越能听懂生活了。
+
+那些清晨匆忙咽下的早餐，通勤路上偶遇的晚霞，深夜为孩子盖好的被角，视频通话里父母新增的白发……这些看似琐碎的日常，其实都是生活最温柔的注脚。
+
+“好好生活就是美好生活。”
+这句简单得像呼吸一样的话，藏着最深刻的道理。
+
+本期，我们将共同演绎这首充满人间烟火气的暖歌。它不追求高亢的华丽，只在乎真挚的叙述。它告诉我们：所谓的诗与远方，往往就藏在柴米油盐的坚守里，藏在平凡日子的一餐一饭里。
+
+在2026，让我们一起去好好生活！
+            </div>
+            <div class="preview-quote">
+                <i class="fas fa-heart"></i> 把生活过成歌，把歌唱成生活 <i class="fas fa-heart"></i>
+            </div>
+        </div>
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> 返回星空主页</a>
+        <div class="footer-note">✨ 敬请期待 · 很快与你们见面 ✨</div>
+    </div>
+
+    <script>
+        // 动态星星 (简版，与letter类似)
+        (function() {
+            const container = document.getElementById('starField');
+            if (!container) return;
+            const dynamics = container.querySelectorAll('.star, .music-note, .shooting-star-extra');
+            dynamics.forEach(el => el.remove());
+            const fragment = document.createDocumentFragment();
+            const STAR_COUNT = 140, BIG_STAR_COUNT = 5, NOTE_COUNT = 12, EXTRA_METEOR_COUNT = 1;
+            const starColors = ['#ffffff', '#fff5e6', '#f0faff', '#fff1cc', '#ffe9b0'];
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                let size = Math.random() < 0.1 ? Math.floor(Math.random() * 3) + 3 : Math.floor(Math.random() * 3) + 1;
+                star.style.width = size + 'px'; star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%'; star.style.top = Math.random() * 100 + '%';
+                const color = starColors[Math.floor(Math.random() * starColors.length)];
+                star.style.backgroundColor = color;
+                star.style.boxShadow = `0 0 ${Math.random() * 12 + 6}px ${color}`;
+                star.style.animation = `twinkle ${(Math.random()*3+2).toFixed(2)}s infinite ease-in-out`;
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.opacity = Math.random() * 0.5 + 0.5;
+                fragment.appendChild(star);
+            }
+            for (let i = 0; i < BIG_STAR_COUNT; i++) {
+                const big = document.createElement('div');
+                big.className = 'star';
+                const size = Math.floor(Math.random() * 5) + 5;
+                big.style.width = size + 'px'; big.style.height = size + 'px';
+                big.style.left = Math.random() * 100 + '%'; big.style.top = Math.random() * 100 + '%';
+                big.style.backgroundColor = '#fffce6';
+                big.style.boxShadow = `0 0 30px #ffdb9f, 0 0 45px #c6a5ff`;
+                big.style.animation = `twinkle 3.5s infinite ease-in-out`;
+                big.style.animationDelay = Math.random() * 2 + 's';
+                big.style.opacity = 0.95;
+                fragment.appendChild(big);
+            }
+            for (let i = 0; i < NOTE_COUNT; i++) {
+                const note = document.createElement('i');
+                note.className = 'fas fa-music music-note';
+                note.setAttribute('aria-hidden', 'true');
+                note.style.left = Math.random() * 100 + '%'; note.style.top = Math.random() * 100 + '%';
+                note.style.fontSize = (Math.floor(Math.random() * 16) + 18) + 'px';
+                const hue = Math.floor(Math.random() * 40) + 40;
+                note.style.color = `hsla(${hue}, 80%, 75%, 0.6)`;
+                note.style.textShadow = `0 0 20px hsla(${hue}, 90%, 70%, 0.9), 0 0 35px #a0b0ff`;
+                note.style.animation = `floatNote ${(Math.random()*5+5).toFixed(2)}s infinite alternate ease-in-out`;
+                note.style.animationDelay = Math.random() * 3 + 's';
+                note.style.opacity = Math.random() * 0.4 + 0.2;
+                fragment.appendChild(note);
+            }
+            for (let i = 0; i < EXTRA_METEOR_COUNT; i++) {
+                const meteor = document.createElement('div');
+                meteor.className = 'shooting-star shooting-star-extra';
+                meteor.style.width = (Math.floor(Math.random() * 100) + 120) + 'px';
+                meteor.style.transform = `rotate(${Math.random() * 20 - 30}deg)`;
+                meteor.style.top = Math.random() * 70 + 5 + '%';
+                meteor.style.left = -Math.random() * 20 - 10 + '%';
+                meteor.style.animation = `shoot ${Math.random() * 5 + 10}s ${Math.random() * 5}s infinite ease-in`;
+                fragment.appendChild(meteor);
+            }
+            container.appendChild(fragment);
+        })();
+    </script>
+    <noscript><style>.stars-container { background: radial-gradient(circle at 50% 50%, #0a1a2f, #030812); }</style></noscript>
+</body>
+</html>
